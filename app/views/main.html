@@ -1,0 +1,93 @@
+<div class="row" ng-controller="VehicleCtrl">
+  <div id="vehicles" class="col-sm-4">
+    <div class="no-results" ng-hide="vehicles.length">
+      <strong>You don't have any vehicles, yet.</strong><br>
+      Add a vehicle to get started.
+    </div>
+
+    <ul class="nav nav-pills nav-stacked">
+      <li ng-repeat="vehicle in vehicles"
+          ng-class="{ active: isActive(vehicle) }">
+
+        <a href ng-click="setActive(vehicle)">
+          {{vehicle.name}}
+        </a>
+      </li>
+    </ul>
+
+    <form name="vehicleForm" ng-submit="addVehicle()">
+      <label for="">Add a vehicle</label>
+      <input type="text" class="form-control" placeholder="Enter year, make, and model" ng-model="name" >
+    </form>
+  </div>
+
+  <div id="records" class="col-sm-8">
+    <div ng-controller="ServiceRecordsCtrl">
+      <div class="no-results" ng-hide="vehicle">
+        <strong>Select a vehicle on the left to view service records.</strong>
+      </div>
+
+      <div ng-show="vehicle">
+        <h2 class="vehicle-name">{{vehicle.name}}</h2>
+
+        <ul class="reminders list-unstyled" ng-show="vehicle.reminders.length">
+          <li class="text-info" ng-repeat="reminder in vehicle.reminders">
+            <strong>Reminder:</strong> {{reminder}}
+          </li>
+        </ul>
+
+        <table class="table table-striped" ng-show="vehicle.records.length">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Mileage</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr ng-repeat="record in vehicle.records">
+              <td>
+                {{record.date | date}}
+              </td>
+              <td>
+                {{record.mileage}}
+              </td>
+              <td>
+                {{record.notes}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <form name="serviceRecordForm"
+              ng-submit="addServiceRecord()">
+          <div class="form-group inputs-combined">
+            <input type="date" class="form-control" ng-model="record.date">
+            <input type="text" class="form-control" placeholder="Enter mileage" ng-model="record.mileage">
+            <textarea class="form-control" placeholder="Enter notes" ng-model="record.notes"></textarea>
+          </div>
+
+          <button class="btn btn-primary">
+            Add record
+          </button>
+        </form>
+
+        <br>
+
+        <form name="reminderForm"
+              ng-submit="addReminder()">
+          <div class="form-group">
+            <input class="form-control" placeholder="Enter reminder" ng-model="reminder" />
+          </div>
+
+          <button class="btn btn-primary">
+            Add reminder
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+</div>
