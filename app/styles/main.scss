@@ -8,28 +8,122 @@ body {
 
 #root {
   margin: 50px 0;
+  padding: 0 30px;
 }
 
 #vehicles {
   ul {
     margin-bottom: 30px;
   }
-}
 
-#records {
-  h2.vehicle-name {
-    margin-top: 0;
+  li {
+    &:hover {
+      .remove {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .remove {
+    position: absolute;
+    right: -40px;
+    top: 0;
+    padding: 14px;
+    opacity: 0;
   }
 }
 
+#records {
+  margin-bottom: 40px;
+
+  h2.vehicle-name {
+    margin-top: 0;
+  }
+
+  .record {
+    @include clearfix;
+    padding: 10px;
+
+    &:hover {
+      background: #fafafa;
+
+      .remove {
+        opacity: 1;
+      }
+    }
+
+    .remove {
+      position: absolute;
+      left: 0;
+      padding: 0 10px;
+      opacity: 0;
+    }
+
+    .date {
+      font-weight: bold;
+      color: $text-muted;
+      font-size: 16px;
+    }
+
+    .mileage {
+      color: $text-muted;
+      text-align: right;
+      font-size: 16px;
+    }
+
+    .notes {
+      clear: both;
+      font-size: 20px;
+    }
+
+    > span {
+      display: block;
+    }
+  }
+
+  form {
+    margin: 10px 0;
+  }
+
+  .actions {
+    background: #fff;
+    border-top: 1px solid #ddd;
+    position: fixed;
+    bottom: 0;
+
+    a {
+      font-weight: bold;
+    }
+  }
+
+  .reminder {
+    &:hover {
+      i.fa {
+        display: none;
+      }
+      .remove {
+        display: inline-block;
+      }
+    }
+
+    a.remove {
+      display: none;
+    }
+  }
+}
 
 .no-results {
   @extend .text-muted;
-  padding: 15px;
+  padding: 25px 15px;
   text-align: center;
-  border: 1px dashed #ddd;
+  border: 1px dashed #cdcdcd;
   margin: 20px 0;
   @include border-radius(3px);
+
+  strong {
+    display: block;
+    font-size: 20px;
+  }
 }
 
 .form-group.inputs-combined {
@@ -52,5 +146,24 @@ body {
     + input, + textarea {
       margin-top: -1px;
     }
+
+  }
+}
+
+a.remove, span.remove {
+  color: lighten($text-muted, 30%);
+  cursor: pointer;
+  @include transition(opacity 200ms ease-out);
+
+  &:hover {
+    text-decoration: none;
+    color: $brand-danger;
+    opacity: 1 !important;
+  }
+}
+
+table {
+  th {
+    color: $text-muted;
   }
 }

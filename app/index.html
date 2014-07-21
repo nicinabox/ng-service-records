@@ -5,6 +5,9 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -16,7 +19,7 @@
   </head>
   <body ng-app="ngServiceRecordsApp">
 
-    <div id="root" class="container">
+    <div id="root" class="">
       <div ng-view=""></div>
     </div>
 
@@ -69,6 +72,9 @@
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/vehicle.js"></script>
     <script src="scripts/controllers/service-records.js"></script>
+    <script src="scripts/directives/affix.js"></script>
+    <script src="scripts/directives/td-truncate.js"></script>
+    <script src="scripts/directives/fixed-actions.js"></script>
     <!-- endbuild -->
 </body>
 </html>

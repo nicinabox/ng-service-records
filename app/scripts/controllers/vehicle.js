@@ -1,5 +1,7 @@
 'use strict';
 
+/* global confirm:true */
+
 /**
  * @ngdoc function
  * @name ngServiceRecordsApp.controller:VehicleCtrl
@@ -18,6 +20,14 @@ angular.module('ngServiceRecordsApp')
         name: $scope.name
       });
       $scope.name = '';
+    };
+
+    $scope.removeVehicle = function(index) {
+      var confirmed = confirm('Really remove vehicle "'+
+        $scope.vehicles[index].name +'"?');
+
+      if (!confirmed) { return; }
+      $scope.vehicles.splice(index, 1);
     };
 
     $scope.setActive = function(vehicle) {

@@ -22,6 +22,29 @@ window.data = [
         date: '2013-09-10',
         mileage: '122000',
         notes: 'Replace passenger axle'
+      },
+      {
+        date: '2014-02-01',
+        notes: 'Install Thule roof rack'
+      },
+      {
+        date: '2014-02-15',
+        notes: 'Install PIAA light bar'
+      },
+      {
+        date: '2014-03-03',
+        mileage: '125682',
+        notes: 'Replace right headlight bulb'
+      },
+      {
+        date: '2014-06-21',
+        mileage: '127470',
+        notes: 'Replace cabin air filter, add Thule fairing'
+      },
+      {
+        date: '2014-07-02',
+        mileage: '127700',
+        notes: 'New wheels and tires. Enkei GT7, Hankook Ventus V12'
       }
     ]
   },
@@ -37,6 +60,8 @@ window.data = [
     name: '1976 Honda CB200T'
   }
 ];
+
+// window.data = [];
 
 /**
  * @ngdoc overview

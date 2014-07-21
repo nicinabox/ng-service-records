@@ -1,93 +1,107 @@
 <div class="row" ng-controller="VehicleCtrl">
   <div id="vehicles" class="col-sm-4">
-    <div class="no-results" ng-hide="vehicles.length">
-      <strong>You don't have any vehicles, yet.</strong><br>
-      Add a vehicle to get started.
-    </div>
-
-    <ul class="nav nav-pills nav-stacked">
-      <li ng-repeat="vehicle in vehicles"
-          ng-class="{ active: isActive(vehicle) }">
-
-        <a href ng-click="setActive(vehicle)">
-          {{vehicle.name}}
-        </a>
-      </li>
-    </ul>
-
-    <form name="vehicleForm" ng-submit="addVehicle()">
-      <label for="">Add a vehicle</label>
-      <input type="text" class="form-control" placeholder="Enter year, make, and model" ng-model="name" >
-    </form>
-  </div>
-
-  <div id="records" class="col-sm-8">
-    <div ng-controller="ServiceRecordsCtrl">
-      <div class="no-results" ng-hide="vehicle">
-        <strong>Select a vehicle on the left to view service records.</strong>
+    <div affix>
+      <div class="no-results" ng-hide="vehicles.length">
+        <strong>You don't have any vehicles yet</strong>
+        Add a vehicle below to get started.
       </div>
 
-      <div ng-show="vehicle">
-        <h2 class="vehicle-name">{{vehicle.name}}</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li ng-repeat="vehicle in vehicles"
+            ng-class="{ active: isActive(vehicle) }">
 
-        <ul class="reminders list-unstyled" ng-show="vehicle.reminders.length">
-          <li class="text-info" ng-repeat="reminder in vehicle.reminders">
-            <strong>Reminder:</strong> {{reminder}}
-          </li>
-        </ul>
+          <a href ng-click="setActive(vehicle)">
+            {{vehicle.name}}
+          </a>
 
-        <table class="table table-striped" ng-show="vehicle.records.length">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Mileage</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
+          <span href class="remove fa fa-trash-o" ng-click="removeVehicle($index)"></span>
+        </li>
+      </ul>
 
-          <tbody>
-            <tr ng-repeat="record in vehicle.records">
-              <td>
-                {{record.date | date}}
-              </td>
-              <td>
-                {{record.mileage}}
-              </td>
-              <td>
-                {{record.notes}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <form name="vehicleForm" ng-submit="addVehicle()">
+        <label for="">Add a vehicle</label>
+        <input type="text" class="form-control" placeholder="Enter year, make, and model" ng-model="name" >
+      </form>
+    </div>
+  </div>
+
+  <div id="records" class="col-sm-8" ng-controller="ServiceRecordsCtrl">
+
+    <div ng-show="vehicle">
+      <h2 class="vehicle-name">
+        <strong>{{vehicle.name}}</strong>
+      </h2>
+
+      <ul class="reminders list-unstyled" ng-show="vehicle.reminders.length">
+        <li class="text-info reminder" ng-repeat="reminder in vehicle.reminders">
+          <i class="fa fa-arrow-circle-o-right fa-fw"></i>
+          <a href class="remove fa fa-trash-o fa-fw" ng-click="removeReminder($index)"></a>
+          <strong>Reminder:</strong> {{reminder}}
+        </li>
+      </ul>
+
+      <div class="no-results" ng-hide="vehicle.records.length">
+        <strong>You don't have any service records yet</strong>
+        <a href ng-click="toggleServiceForm()">Add service</a> to get started.
+      </div>
+
+      <div ng-show="vehicle.records.length">
+        <div class="record" ng-repeat="record in vehicle.records | orderBy: 'date':true ">
+          <a href class="remove fa fa-trash-o"
+              ng-click="removeRecord(vehicle.records.length - 1 - $index)"></a>
+
+          <span class="date pull-left">{{record.date | date}}</span>
+          <span class="mileage pull-right">{{record.mileage | number}}</span>
+          <span class="notes">{{record.notes}}</span>
+        </div>
+      </div>
+
+      <div class="actions" fixed-actions>
+        <a href class="btn btn-link"
+            ng-click="toggleServiceForm()"
+            ng-hide="showServiceForm || showReminderForm">
+
+          <i class="fa fa-plus"></i> Add Service
+        </a>
+        <a href class="btn btn-link"
+            ng-click="toggleReminderForm()"
+            ng-hide="showServiceForm || showReminderForm">
+          <i class="fa fa-plus"></i> Add Reminder
+        </a>
 
         <form name="serviceRecordForm"
-              ng-submit="addServiceRecord()">
+              ng-submit="serviceRecordForm.$valid && addServiceRecord()"
+              ng-show="showServiceForm"
+              novalidate>
           <div class="form-group inputs-combined">
-            <input type="date" class="form-control" ng-model="record.date">
+            <input type="date" class="form-control" ng-model="record.date" required>
             <input type="text" class="form-control" placeholder="Enter mileage" ng-model="record.mileage">
-            <textarea class="form-control" placeholder="Enter notes" ng-model="record.notes"></textarea>
+            <textarea class="form-control" placeholder="Enter notes" ng-model="record.notes" required></textarea>
           </div>
 
           <button class="btn btn-primary">
-            Add record
+            Add service
           </button>
+
+          <a href class="text-muted btn btn-text" ng-click="toggleServiceForm()">Cancel</a>
         </form>
 
-        <br>
-
         <form name="reminderForm"
-              ng-submit="addReminder()">
+              ng-submit="reminderForm.$valid && addReminder()"
+              ng-show="showReminderForm"
+              novalidate>
           <div class="form-group">
-            <input class="form-control" placeholder="Enter reminder" ng-model="reminder" />
+            <input class="form-control" placeholder="Enter reminder" ng-model="reminder" required/>
           </div>
 
           <button class="btn btn-primary">
             Add reminder
           </button>
+          <a href class="text-muted btn btn-text" ng-click="toggleReminderForm()">Cancel</a>
         </form>
       </div>
-    </div>
 
+    </div>
   </div>
 
 </div>
