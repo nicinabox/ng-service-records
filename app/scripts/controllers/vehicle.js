@@ -19,6 +19,7 @@ angular.module('ngServiceRecordsApp')
         id: $scope.vehicles.length + 1,
         name: $scope.name
       });
+      $scope.setActive($scope.vehicles[$scope.vehicles.length - 1]);
       $scope.name = '';
     };
 

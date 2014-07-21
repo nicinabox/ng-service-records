@@ -61,7 +61,7 @@ window.data = [
   }
 ];
 
-// window.data = [];
+window.data = [];
 
 /**
  * @ngdoc overview

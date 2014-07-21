@@ -1,5 +1,10 @@
 <div class="row" ng-controller="VehicleCtrl">
-  <div id="vehicles" class="col-sm-4">
+  <div id="vehicles"
+    ng-class="{
+      'col-sm-4': vehicles.length,
+      'col-sm-6 center-block': !vehicles.length
+      }">
+
     <div affix>
       <div class="no-results" ng-hide="vehicles.length">
         <strong>You don't have any vehicles yet</strong>
@@ -20,14 +25,17 @@
       </ul>
 
       <form name="vehicleForm"
-        ng-submit="addVehicle()"
-        ng-class="{ active:isFormActive() }">
+        ng-submit="vehicleForm.$valid && addVehicle()"
+        ng-class="{ active:isFormActive() || !vehicles.length }"
+        novalidate>
 
         <label for="">Add a vehicle</label>
         <input type="text" class="form-control" placeholder="Enter year, make, and model"
           ng-model="name"
           ng-focus="activateForm()"
-          ng-blur="deactivateForm()">
+          ng-blur="deactivateForm()"
+          required
+          autofocus>
       </form>
     </div>
   </div>

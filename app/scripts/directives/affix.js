@@ -13,19 +13,25 @@ angular.module('ngServiceRecordsApp')
     return {
       restrict: 'A',
       link: function postLink(scope, el, attrs) {
-        var options = {
-          offset: {}
-        };
-        options.offset[attrs.affix || 'top'] = 0;
+        setTimeout(function() {
+          var options = {
+            offset: {}
+          };
+          options.offset[attrs.affix || 'top'] = 0;
 
-        $(el).width($(el).width());
-        $(el).affix(options);
+          $(el).width($(el).width());
+          $(el).affix(options);
 
-        $(window).resize(function() {
-          $(el)
-            .width('auto')
-            .width($(el).width());
-        });
+          var resize = function() {
+            $(el)
+              .width('auto')
+              .width($(el).width());
+          };
+
+          scope.$watch('vehicles.length', resize);
+          $(window).resize(resize);
+
+        }, 200);
       }
     };
   });
