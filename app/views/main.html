@@ -12,15 +12,22 @@
 
           <a href ng-click="setActive(vehicle)">
             {{vehicle.name}}
+
+            <span href class="remove fa fa-trash-o" ng-click="removeVehicle($index)"></span>
           </a>
 
-          <span href class="remove fa fa-trash-o" ng-click="removeVehicle($index)"></span>
         </li>
       </ul>
 
-      <form name="vehicleForm" ng-submit="addVehicle()">
+      <form name="vehicleForm"
+        ng-submit="addVehicle()"
+        ng-class="{ active:isFormActive() }">
+
         <label for="">Add a vehicle</label>
-        <input type="text" class="form-control" placeholder="Enter year, make, and model" ng-model="name" >
+        <input type="text" class="form-control" placeholder="Enter year, make, and model"
+          ng-model="name"
+          ng-focus="activateForm()"
+          ng-blur="deactivateForm()">
       </form>
     </div>
   </div>

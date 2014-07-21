@@ -38,5 +38,17 @@ angular.module('ngServiceRecordsApp')
       return $scope.vehicle === vehicle;
     };
 
+    $scope.isFormActive = function() {
+      return $scope.formActive;
+    };
+
+    $scope.activateForm = function() {
+      $scope.formActive = true;
+    };
+
+    $scope.deactivateForm = function() {
+      $scope.formActive = false;
+    };
+
     $scope.setActive($scope.vehicles[0]);
   });
